@@ -2,6 +2,37 @@
 
 Envia um Adaptive Card com as condições meteorológicas atuais de Recife para um grupo do Microsoft Teams.
 
+## Sobre o projeto
+
+Este projeto foi inspirado em uma automação que desenvolvi no trabalho para um
+cliente, com notificações de monitoramento enviadas ao Teams de hora em hora.
+Esta é uma versão demonstrativa preparada para publicação: usa a API pública
+Open-Meteo para obter dados meteorológicos de Recife e, por padrão, envia uma
+notificação mensal via Github Actions.
+
+Esta versão não inclui código, dados, credenciais ou configurações específicas
+do cliente. A frequência mensal e o uso de uma API pública são escolhas desta
+demonstração e podem ser ajustados para outros casos de uso.
+
+## Demonstração
+
+Execução agendada do workflow no GitHub Actions:
+
+![Execução agendada do workflow no GitHub Actions](Assets/Actions.png)
+
+Adaptive Card recebido no grupo do Microsoft Teams:
+
+![Adaptive Card com os dados meteorológicos recebido no Microsoft Teams](Assets/Teams-Card.png)
+
+## Adaptar para outra API ou conteúdo
+
+Para usar outra API, ajuste a URL e os parâmetros em `src/config.py` e adapte
+`format_weather` em `src/notifier.py` para extrair os campos da resposta dessa
+API. O conteúdo visual do Adaptive Card é montado por `build_teams_payload` no
+mesmo arquivo: altere o payload para exibir os campos e o layout adequados ao
+seu cenário. O endpoint do webhook do Teams deve continuar configurado como o
+segredo `TEAMS_WEBHOOK_URL`; não o coloque no código ou no README.
+
 ## Executar localmente
 
 1. Instale as dependências:
