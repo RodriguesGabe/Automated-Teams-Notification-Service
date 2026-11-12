@@ -27,7 +27,8 @@ Não publique o arquivo `.env` nem compartilhe a URL do webhook.
 ## Agendamento pelo GitHub Actions
 
 O workflow em `.github/workflows/teams-notification.yml` envia uma notificação
-a cada hora.
+uma vez por mês, todo dia 9 às 09h no horário de Brasília. O workflow também
+pode ser iniciado manualmente pela aba **Actions**.
 
 Para configurá-lo:
 
@@ -39,6 +40,20 @@ Para configurá-lo:
 4. Para testar sem esperar o cron, abra **Actions → Teams weather notification
    → Run workflow**.
 
-O cron é interpretado em UTC. A expressão `0 * * * *` agenda o workflow no
-início de cada hora UTC; o GitHub pode atrasar execuções agendadas em períodos
-de alta demanda.
+O cron é interpretado em UTC. A expressão `0 12 9 * *` corresponde a 12h UTC
+no dia 9 de cada mês, ou 9h no horário de Brasília (UTC−3). O GitHub pode
+atrasar execuções agendadas em períodos de alta demanda.
+
+Para mudar a frequência, edite o valor de `cron` no arquivo
+`.github/workflows/teams-notification.yml`, faça commit e envie a alteração
+para a branch padrão. Exemplos (todos em UTC):
+
+| Expressão cron | Agendamento                         |
+| -------------- | ----------------------------------- |
+| `0 12 9 * *`   | Dia 9 de cada mês às 9h de Brasília |
+| `0 12 * * *`   | Todos os dias às 9h de Brasília     |
+| `0 * * * *`    | A cada hora, no minuto zero         |
+
+Depois de alterar o cron, confira a conversão para UTC para que o envio ocorra
+no horário local desejado. O botão **Run workflow** continua disponível para
+execuções manuais, independentemente do cron.
